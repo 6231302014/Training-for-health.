@@ -27,7 +27,53 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json()); 
 // ============= Create hashed password ==============
+app.get("/password/:pass", function (req, res) {
+    const password = req.params.pass;
+    const saltRounds = 10;    //the cost of encrypting see https://github.com/kelektiv/node.bcrypt.js#a-note-on-rounds
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+        //return hashed password, 60 characters
+        // console.log(hash.length);
+        res.send(hash);
+    });
+});
 
+// ============= Login ==============
+app.post("/login", function (req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const sql = "SELECT password, role FROM user WHERE username=?";
+    con.query(sql, [username], function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            const numrows = result.length;
+            //if that user is not unique
+            if (numrows != 1) {
+                //login failed
+                res.status(401).send("Wrong username");
+            }
+            else {
+                // console.log(result[0].password);
+                //verify password, async method
+                bcrypt.compare(password, result[0].password, function (err, resp) {
+                    if (err) {
+                        res.status(503).send("Authentication Server error");
+                    }
+                    else if (resp == true) {
+                        //correct login send destination URL to client
+                        res.send("/welcome");
+                    }
+                    else {
+                        //wrong password
+                        res.status(401).send("Wrong password");
+                    }
+                });
+            }
+        }
+    });
+});
 
 app.post("/register", function (req, res) {
     const username = req.body.username;
