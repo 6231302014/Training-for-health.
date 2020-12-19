@@ -766,7 +766,36 @@
 
       });
 
+      $("#btnregister").click(function () {
+        const user = $("#regisUsername").val();
+        const pass = $("#regisPassword").val();
+        const email = $("#regisemail").val();
       
+
+        if (user == "" || pass == "") {
+          alert("Missing Input!!")
+          
+        }
+        else {
+
+
+          $.ajax({
+            method: "POST",
+            url: "/register",
+            data: { username: user, password: pass, email:email}
+          }).done(function (data, state, xhr) {
+            //correct sign up
+              alert("Register Success!!")
+            $(".alert-success").show().fadeOut(3000);
+          }).fail(function (xhr, state, error) {
+            //wrong sign up
+                alert("Register Fail!!")
+            $("#alertMessage").text(xhr.responseText);
+            $(".alert-danger").show().fadeOut(3000);
+          });
+
+        }
+      });
 
     });
 
