@@ -610,7 +610,70 @@
        window.location.replace("extable")
       
     });
-    
+    $("#btnHealth").click(function () { 
+      if($("#30Min").is(":checked")){
+        window.location.replace("extable")
+      }else if($("#60Min").is(":checked")){
+        window.location.href= 'extable4.html';
+      }else{
+        Swal.fire({
+            icon: "error",
+            title: "Please choose time !",
+            
+
+          });
+      }
+
+      
+    });
+    $("#btnContest").click(function () { 
+      if($("#30Min").is(":checked")){
+        window.location.replace("extable2")
+      }else if($("#60Min").is(":checked")){
+        window.location.replace("extable5")
+      }else{
+        Swal.fire({
+            icon: "error",
+            title: "Please choose time !",
+            
+
+          });
+      }
+
+      
+    });
+    $("#btnWeightgain").click(function () { 
+      if($("#30Min").is(":checked")){
+        window.location.replace("extable3")
+      }else if($("#60Min").is(":checked")){
+        window.location.replace("extable4")
+      }else{
+        Swal.fire({
+            icon: "error",
+            title: "Please choose time !",
+            
+
+          });
+      }
+
+      
+    });
+    $("#btnLoseweight").click(function () { 
+      if($("#30Min").is(":checked")){
+        window.location.replace("extable5")
+      }else if($("#60Min").is(":checked")){
+        window.location.replace("extable")
+      }else{
+        Swal.fire({
+            icon: "error",
+            title: "Please choose time !",
+            
+
+          });
+      }
+
+      
+    });
   </script>
 
 </body>
