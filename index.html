@@ -381,7 +381,7 @@
                         </div>
 
                         <div class="col-md-12">
-                          <button id="btncal" type="submit"
+                          <button id="btncal" type="button"
                             class="button button-a button-big button-rouded">Calculate</button>
                         </div>
                         <br>
@@ -611,7 +611,7 @@
                           
                   
                         <div class="col-md-12" style="text-align: right;">
-                          <button id="btnregister" type="submit"
+                          <button id="btnregister" type="button"
                             class="button button-a button-big button-rouded">REGISTER</button>
                         </div>
                       
@@ -760,6 +760,13 @@
         
         }).fail(function (xhr, state, error) {
           //wrong login
+
+          Swal.fire({
+          icon: "error",
+          title: "Incomplete Input!"
+
+
+        });
           $("#alertMessage").text(xhr.responseText);
           $(".alert-danger").show().fadeOut(3000);
         });
@@ -769,27 +776,37 @@
       $("#btnregister").click(function () {
         const user = $("#regisUsername").val();
         const pass = $("#regisPassword").val();
-        const email = $("#regisemail").val();
+        
       
 
         if (user == "" || pass == "") {
-          alert("Missing Input!!")
+          Swal.fire({
+          icon: "error",
+          title: "Missing Input"
+
+
+        });
+
           
         }
         else {
 
-
           $.ajax({
             method: "POST",
             url: "/register",
-            data: { username: user, password: pass, email:email}
+            data: { username: user, password: pass}
           }).done(function (data, state, xhr) {
             //correct sign up
-              alert("Register Success!!")
+            Swal.fire({
+          icon: "success",
+          title: "Register Complete!!"
+
+
+        });
             $(".alert-success").show().fadeOut(3000);
           }).fail(function (xhr, state, error) {
             //wrong sign up
-                alert("Register Fail!!")
+            
             $("#alertMessage").text(xhr.responseText);
             $(".alert-danger").show().fadeOut(3000);
           });
