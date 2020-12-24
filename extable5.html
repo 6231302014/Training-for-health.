@@ -25,7 +25,23 @@
   <!-- Main Stylesheet File -->
   <link href="style.css" rel="stylesheet" type="text/css">
   <script src="lib/jquery/jquery.min.js"></script>
-  
+  <script>
+    $(document).ready(function () {
+     $('input[type="checkbox"]').click(function(){
+             if($(this).prop("checked") == true){
+               Swal.fire({
+           icon: "warning",
+           title:"Do it now !!"
+          
+         
+ 
+ 
+         });
+             }
+            
+         });
+    });
+  </script>
 
 </head>
 <body>
